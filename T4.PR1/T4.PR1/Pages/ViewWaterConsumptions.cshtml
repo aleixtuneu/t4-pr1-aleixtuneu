@@ -1,0 +1,41 @@
+﻿@page
+@model T4.PR1.Pages.ViewWaterConsumptionsModel
+@{
+	ViewData["Title"] = "Consums d'Aigua";
+}
+
+<h1>Llistat de Consums d'Aigua</h1>
+<br/>
+
+<table class="table">
+	<thead>
+		<tr>
+			<td>Any</td>
+			<td>Codi de Comarca</td>
+			<td>Comarca</td>
+			<td>Població</td>
+			<td>Domèstic Xarxa</td>
+			<td>Activitats Econòmiques i Fonts Pròpies</td>
+			<td>Total</td>
+			<td>Consum Domèstic per Càpita</td>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var waterConsumption in Model.WaterConsumptions)
+		{
+			<tr>
+				<td>@waterConsumption.Year</td>
+				<td>@waterConsumption.Code</td>
+				<td>@waterConsumption.County</td>
+				<td>@waterConsumption.Population</td>
+				<td>@waterConsumption.HomeNetwork</td>
+				<td>@waterConsumption.EconomicActivities</td>
+				<td>@waterConsumption.TotalWaterConsumption</td>
+				<td>@waterConsumption.DomesticConsumptionPerCapita</td>
+			</tr>
+		}
+	</tbody>
+
+	<p>@Model.FileErrorMessage</p>
+
+</table>
