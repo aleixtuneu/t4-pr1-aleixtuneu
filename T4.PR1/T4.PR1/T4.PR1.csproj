@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="Model\" />
     <Folder Include="ModelData\" />
   </ItemGroup>
 
@@ -16,6 +15,10 @@
     <None Include="wwwroot\images\image.png" />
     <None Include="wwwroot\images\logo.jpg" />
     <None Include="wwwroot\images\practica-banner.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
   </ItemGroup>
 
 </Project>
