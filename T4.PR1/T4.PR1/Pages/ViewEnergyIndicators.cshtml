@@ -114,3 +114,123 @@
         </tbody>
     </table>
 </div>
+<br />
+<br />
+
+<!-- Producció Neta > 3000 -->
+<h2>Producció Neta &gt; 3000 (Ordenat Ascendentment)</h2>
+@if (Model.HighNetProduction.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Producció Neta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.HighNetProduction)
+            {
+                <tr>
+                    <td>@item.Date</td>
+                    <td>@item.CDEEBC_NetProduction</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hi ha dades disponibles.</p>
+}
+<br />
+<br />
+
+<!-- Consum Gasolina > 100 -->
+<h2>Consum Gasolina &gt; 100 (Ordenat Descendentment)</h2>
+@if (Model.HighGasolineConsumption.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Consum Gasolina</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.HighGasolineConsumption)
+            {
+                <tr>
+                    <td>@item.Date</td>
+                    <td>@item.CCAC_AutoGasoline</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hi ha dades disponibles.</p>
+}
+<br />
+<br />
+
+<!-- Mitjana de Producció Neta per Any -->
+<h2>Mitjana de Producció Neta per Any</h2>
+@if (Model.AvgNetProductionPerYear.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Any</th>
+                <th>Mitjana Producció Neta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.AvgNetProductionPerYear.OrderBy(x => x.Key))
+            {
+                <tr>
+                    <td>@entry.Key</td>
+                    <td>@entry.Value.ToString("N2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hi ha dades disponibles.</p>
+}
+<br />
+<br />
+
+<!-- Demanda Elèctrica > 4000 i Producció Disponible < 300 -->
+<h2>Demanda Elèctrica &gt; 4000 i Producció Disponible &lt; 300</h2>
+@if (Model.HighDemandLowProduction.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Demanda Elèctrica</th>
+                <th>Producció Disponible</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.HighDemandLowProduction)
+            {
+                <tr>
+                    <td>@item.Date</td>
+                    <td>@item.CDEEBC_ElectricityDemand</td>
+                    <td>@item.CDEEBC_AvailableProduction</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hi ha dades disponibles.</p>
+}
+<br />
+<br />
