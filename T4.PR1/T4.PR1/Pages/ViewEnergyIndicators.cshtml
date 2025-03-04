@@ -1,0 +1,105 @@
+﻿@page
+@model T4.PR1.Pages.ViewEnergyIndicatorsModel
+@{
+    ViewData["Title"] = "Llistat de consums d'energia";
+}
+
+<h1>Llistat d'Indicadors Energètics</h1>
+<br />
+
+<!-- Taula Principal -->
+<div style="overflow-x: auto;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Hidràulica</th>
+                <th>Carbó</th>
+                <th>Gas Natural</th>
+                <th>Fuel Oil</th>
+                <th>Cicle Combinat</th>
+                <th>Nuclear</th>
+                <th>Producció Bruta</th>
+                <th>Consum Auxiliar</th>
+                <th>Producció Neta</th>
+                <th>Consum Bomba</th>
+                <th>Producció Disponible</th>
+                <th>Venda Central</th>
+                <th>Balanç Intercanvi</th>
+                <th>Demanda Elèctrica</th>
+                <th>Mercat Regulat (%)</th>
+                <th>Mercat Lliure</th>
+                <th>Indústria</th>
+                <th>Sector Terciari</th>
+                <th>Domèstic</th>
+                <th>Primari</th>
+                <th>Energia</th>
+                <th>Obres Públiques</th>
+                <th>Siderúrgia</th>
+                <th>Metal·lúrgia</th>
+                <th>Indústria del Vidre</th>
+                <th>Ciment i Guix</th>
+                <th>Materials Construcció</th>
+                <th>Petroquímica</th>
+                <th>Construcció Transport</th>
+                <th>Transformació Metalls</th>
+                <th>Aliments i Begudes</th>
+                <th>Tèxtil i Calçat</th>
+                <th>Paper i Cartró</th>
+                <th>Altres Indústries</th>
+                <th>Front Enagás</th>
+                <th>Distribució GNL</th>
+                <th>Consum Gas Natural</th>
+                <th>Gasolina</th>
+                <th>Gasoil A</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.EnergyIndicators)
+            {
+                <tr>
+                    <td>@item.Date</td>
+                    <td>@item.PBEE_Hydroelectric</td>
+                    <td>@item.PBEE_Coal</td>
+                    <td>@item.PBEE_NaturalGas</td>
+                    <td>@item.PBEE_FuelOil</td>
+                    <td>@item.PBEE_CombinedCycle</td>
+                    <td>@item.PBEE_Nuclear</td>
+                    <td>@item.CDEEBC_GrossProduction</td>
+                    <td>@item.CDEEBC_AuxiliaryConsumption</td>
+                    <td>@item.CDEEBC_NetProduction</td>
+                    <td>@item.CDEEBC_PumpConsumption</td>
+                    <td>@item.CDEEBC_AvailableProduction</td>
+                    <td>@item.CDEEBC_TotalSalesCentralGrid</td>
+                    <td>@item.CDEEBC_InterchangeBalance</td>
+                    <td>@item.CDEEBC_ElectricityDemand</td>
+                    <td>@item.CDEEBC_TotalRegulatedMarket</td>
+                    <td>@item.CDEEBC_TotalLiberalizedMarket</td>
+                    <td>@item.FEE_Industry</td>
+                    <td>@item.FEE_Tertiary</td>
+                    <td>@item.FEE_Domestic</td>
+                    <td>@item.FEE_Primary</td>
+                    <td>@item.FEE_Energy</td>
+                    <td>@item.FEEI_PublicWorksConsumption</td>
+                    <td>@item.FEEI_SteelFoundry</td>
+                    <td>@item.FEEI_Metallurgy</td>
+                    <td>@item.FEEI_GlassIndustry</td>
+                    <td>@item.FEEI_CementLimePlaster</td>
+                    <td>@item.FEEI_OtherConstructionMaterials</td>
+                    <td>@item.FEEI_ChemicalPetrochemical</td>
+                    <td>@item.FEEI_TransportConstruction</td>
+                    <td>@item.FEEI_OtherMetalTransformation</td>
+                    <td>@item.FEEI_FoodBeverageTobacco</td>
+                    <td>@item.FEEI_TextileLeatherFootwear</td>
+                    <td>@item.FEEI_PaperPulpCardboard</td>
+                    <td>@item.FEEI_OtherIndustries</td>
+                    <td>@item.DGGN_FrontierEnagas</td>
+                    <td>@item.DGGN_GNLDistribution</td>
+                    <td>@item.DGGN_NaturalGasConsumption</td>
+                    <td>@item.CCAC_AutoGasoline</td>
+                    <td>@item.CCAC_DieselA</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
