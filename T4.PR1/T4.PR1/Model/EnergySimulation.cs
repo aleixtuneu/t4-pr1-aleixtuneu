@@ -2,15 +2,17 @@
 {
     public class EnergySimulation
     {
-        public DateTime SimulationDate { get; private set; }
-        public string SystemType { get; private set; }
-        public decimal InputValue { get; private set; }
-        public decimal Ratio { get; private set; }
-        public decimal EnergyGenerated { get; private set; }
-        public decimal CostPerKWh { get; private set; }
-        public decimal PricePerKWh { get; private set; }
+        public DateTime SimulationDate { get; set; }
+        public string SystemType { get; set; }
+        public decimal InputValue { get; set; }
+        public decimal Ratio { get; set; }
+        public decimal EnergyGenerated { get; set; }
+        public decimal CostPerKWh { get; set; }
+        public decimal PricePerKWh { get; set; }
         public decimal TotalCost => EnergyGenerated * CostPerKWh;  // 🔒 Només lectura
         public decimal TotalPrice => EnergyGenerated * PricePerKWh;  // 🔒 Només lectura
+
+        public EnergySimulation() { }
 
         public EnergySimulation(string systemType, decimal inputValue, decimal ratio, decimal costPerKWh, decimal pricePerKWh)
         {
