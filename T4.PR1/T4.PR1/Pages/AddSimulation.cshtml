@@ -1,0 +1,50 @@
+﻿@page
+@model T4.PR1.Pages.AddSimulationModel
+@{
+}
+
+<h2>Afegir una nova simulació</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Tipus de sistema d’energia</label>
+        <select class="form-control" asp-for="NewSimulation.SystemType">
+            <option value="">-- Selecciona un tipus --</option>
+            <option value="Solar">Solar</option>
+            <option value="Wind">Eòlic</option>
+            <option value="Hydraulic">Hidroelèctric</option>
+        </select>
+        <span class="text-danger" asp-validation-for="NewSimulation.SystemType"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Valor d'entrada</label>
+        <input type="number" step="0.01" class="form-control" asp-for="NewSimulation.InputValue">
+        <span class="text-danger" asp-validation-for="NewSimulation.InputValue"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Rati</label>
+        <input type="number" step="0.01" class="form-control" asp-for="NewSimulation.Ratio">
+        <span class="text-danger" asp-validation-for="NewSimulation.Ratio"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Cost per kWh (€)</label>
+        <input type="number" step="0.01" class="form-control" asp-for="NewSimulation.CostPerKWh">
+        <span class="text-danger" asp-validation-for="NewSimulation.CostPerKWh"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Preu per kWh (€)</label>
+        <input type="number" step="0.01" class="form-control" asp-for="NewSimulation.PricePerKWh">
+        <span class="text-danger" asp-validation-for="NewSimulation.PricePerKWh"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Afegir Simulació</button>
+</form>

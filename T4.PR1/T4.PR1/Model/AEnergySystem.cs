@@ -2,11 +2,11 @@
 {
     public abstract class AEnergySystem
     {
-        public decimal Ratio { get; private set; }
+        public decimal Ratio { get; set; }
 
         protected AEnergySystem(decimal ratio)
         {
-            if (ratio <= 0 || ratio > 0.3m)
+            if (ratio <= 0 || ratio > 3m)
                 throw new ArgumentException("El rati ha d'estar en el rang (0,3].");
 
             Ratio = ratio;

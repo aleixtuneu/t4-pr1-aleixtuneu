@@ -38,6 +38,17 @@ namespace T4.PR1.Pages
                                 CostPerKWh = csv.GetField<decimal>(5),
                                 PricePerKWh = csv.GetField<decimal>(6)
                             };
+
+                            AEnergySystem system = energySimulation.SystemType switch
+                            {
+                                "Solar" => new SolarSystem(energySimulation.Ratio),
+                                "Wind" => new WindSystem(energySimulation.Ratio),
+                                "Hydraulic" => new HydraulicSystem(energySimulation.Ratio),
+                                _ => throw new ArgumentException("Tipus de sistema invàlid.")
+                            };
+
+                            energySimulation.EnergyGenerated = system.CalculateEnergy(energySimulation.InputValue);
+
                             Simulations.Add(energySimulation);
                         }
                         catch
