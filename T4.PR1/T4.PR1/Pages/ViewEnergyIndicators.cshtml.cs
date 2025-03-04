@@ -1,4 +1,4 @@
-using CsvHelper;
+﻿using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Globalization;
@@ -8,30 +8,36 @@ namespace T4.PR1.Pages
 {
     public class ViewEnergyIndicatorsModel : PageModel
     {
+        // Missatge d'error
         public string FileErrorMessage;
+
+        // Llista d'inidcadors
         public List<EnergyIndicator> EnergyIndicators { get; set; } = new List<EnergyIndicator>();
 
-        // Llistes per els an�lisis estad�stics
+        // Llistes per els anàlisis estadístics
         public List<EnergyIndicator> HighNetProduction { get; set; } = new List<EnergyIndicator>();
         public List<EnergyIndicator> HighGasolineConsumption { get; set; } = new List<EnergyIndicator>();
         public Dictionary<int, decimal> AvgNetProductionPerYear { get; set; } = new();
         public List<EnergyIndicator> HighDemandLowProduction { get; set; } = new List<EnergyIndicator>();
+        
         public void OnGet()
         {
             string filePath = @"ModelData\indicadors_energetics_cat.csv";
 
             try
             {
+                // Llegir el CSV
                 using (var reader = new StreamReader(filePath))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     csv.Read();
                     csv.ReadHeader();
 
-                    while (csv.Read())
+                    while (csv.Read()) // Llegeix cada fila
                     {
                         try
                         {
+                            // Nou objecte amb els valors llegits
                             var energyIndicator = new EnergyIndicator()
                             {
                                 Date = csv.TryGetField<string>(0, out var date) ? date : "01/2000",
@@ -75,41 +81,46 @@ namespace T4.PR1.Pages
                                 CCAC_AutoGasoline = csv.TryGetField<decimal>(38, out val) ? val : 0,
                                 CCAC_DieselA = csv.TryGetField<decimal>(39, out val) ? val : 0
                             };
-                            EnergyIndicators.Add(energyIndicator);
+                            EnergyIndicators.Add(energyIndicator); // Afegir a la llista
                         }
                         catch
                         {
-                            FileErrorMessage = "Error al carregar les dades d'un indicador energ�tic";
+                            FileErrorMessage = "Error al carregar les dades d'un indicador energètic";
                         }
                     }
 
+                    // Si hi ha indicadors, es realitzen anàlisis estadístics
                     if (EnergyIndicators.Count > 0)
                     {
+                        // Filtra els indicadors amb una producció neta superior a 3000
                         HighNetProduction = EnergyIndicators
                             .Where(e => e.CDEEBC_NetProduction > 3000)
                             .OrderBy(e => e.CDEEBC_NetProduction)
                             .ToList();
 
+                        // Filtra els indicadors amb un consum de gasolina superior a 100
                         HighGasolineConsumption = EnergyIndicators
                             .Where(e => e.CCAC_AutoGasoline > 100)
                             .OrderByDescending(e => e.CCAC_AutoGasoline)
                             .ToList();
 
+                        // Calcula la producció neta mitjana per any
                         AvgNetProductionPerYear = EnergyIndicators
                             .Select(e =>
                             {
-                                var parts = e.Date.Split('/');
+                                var parts = e.Date.Split('/'); // Separa la data en mes i any
                                 return (Year: parts.Length == 2 && int.TryParse(parts[1], out int year) ? year : (int?)null, e.CDEEBC_NetProduction);
                             })
-                            .Where(e => e.Year.HasValue)
-                            .GroupBy(e => e.Year.Value)
+                            .Where(e => e.Year.HasValue) // Filtra només els valors amb un any vàlid
+                            .GroupBy(e => e.Year.Value) // Agrupa per any
                             .ToDictionary(
                                 g => g.Key,
-                                g => g.Average(e => e.CDEEBC_NetProduction) ?? 0m
+                                g => g.Average(e => e.CDEEBC_NetProduction) ?? 0m // Calcula la mitjana de producció per any
                             )
                             .OrderBy(kv => kv.Key)
-                            .ToDictionary(kv => kv.Key, kv => kv.Value);
+                            .ToDictionary(kv => kv.Key, kv => kv.Value); // Ordena per any
 
+                        // Filtra registres amb alta demanda (>4000) i baixa producció (≤300)
                         HighDemandLowProduction = EnergyIndicators
                             .Where(e => e.CDEEBC_ElectricityDemand > 4000 && e.CDEEBC_AvailableProduction <= 300)
                             .ToList();
@@ -118,7 +129,7 @@ namespace T4.PR1.Pages
             }
             catch
             {
-                FileErrorMessage = "Error de c�rrega de dades";
+                FileErrorMessage = "Error de càrrega de dades";
             }
         }
     }

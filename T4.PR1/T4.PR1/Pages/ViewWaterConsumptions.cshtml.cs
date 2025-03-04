@@ -10,10 +10,13 @@ namespace T4.PR1.Pages
 {
     public class ViewWaterConsumptionsModel : PageModel
     {
+		// Missatge d'error
         public string FileErrorMessage;
 
+		// Llista de consums d'aigua 
         public List<WaterConsumption> WaterConsumptions { get; set; } = new List<WaterConsumption>();
 
+		// Llistes per anàlisis estadístics
 		public List<WaterConsumption> TopTenMunicipalities { get; set; } = new List<WaterConsumption>();
 		public Dictionary<string, decimal> AvgConsumptionPerCounty { get; set; } = new();
 		public List<WaterConsumption> SuspiciousConsumptions { get; set; } = new List<WaterConsumption>();
@@ -23,19 +26,20 @@ namespace T4.PR1.Pages
         {
 			string filePath = @"ModelData\consum_aigua_cat_per_comarques.csv";
 
-
 			try
 			{
+				// Llegir fitxer csv 
 				using (var reader = new StreamReader(filePath))
 				using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
 				{
 					csv.Read();
 					csv.ReadHeader();
 
-					while (csv.Read())
+					while (csv.Read()) // Llegir fila per fila
 					{
 						try
 						{
+							// Llegir registres per atribut
 							var waterConsumption = new WaterConsumption()
 							{
 								Year = csv.GetField<int>(0),
@@ -47,6 +51,7 @@ namespace T4.PR1.Pages
 								TotalWaterConsumption = csv.GetField<int>(6), 
 								DomesticConsumptionPerCapita = csv.GetField<decimal>(7) 
 							};
+							// Afegir a la llista 
 							WaterConsumptions.Add(waterConsumption);
 						}
 						catch
