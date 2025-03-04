@@ -7,13 +7,19 @@
 <h1>Llistat de Consums d'Aigua</h1>
 <br/>
 
-<p>Nombre de registres: @Model.WaterConsumptions.Count</p>
+<p><strong>Nombre de registres:</strong> @Model.WaterConsumptions.Count</p>
+@if (!string.IsNullOrEmpty(Model.FileErrorMessage))
+{
+	<p class="text-danger">@Model.FileErrorMessage</p>
+}
 <br/>
 
 <a asp-page="/AddWaterConsumption" class="btn btn-primary">Afegir Consum d'Aigua</a>
 <br/>
+<br/>
 
-<table class="table">
+<!-- Taula Principal -->
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<td>Any</td>
@@ -41,7 +47,100 @@
 			</tr>
 		}
 	</tbody>
-
-	<p>@Model.FileErrorMessage</p>
-
 </table>
+<br />
+<br />
+
+<!-- Top 10 Municipis amb més consum -->
+<h2>Top 10 Municipis amb més consum d'aigua (@Model.WaterConsumptions.Max(x => x.Year))</h2>
+@if (Model.TopTenMunicipalities.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Comarca</th>
+                <th>Total Consum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.TopTenMunicipalities)
+            {
+                <tr>
+                    <td>@item.County</td>
+                    <td>@item.TotalWaterConsumption</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hi ha dades disponibles.</p>
+}
+<br />
+<br />
+
+<!-- Consum promig per comarca -->
+<h2>Consum Mitjà d'Aigua per Comarca</h2>
+@if (Model.AvgConsumptionPerCounty.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Comarca</th>
+                <th>Consum Mitjà</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.AvgConsumptionPerCounty.OrderByDescending(x => x.Value))
+            {
+                <tr>
+                    <td>@entry.Key</td>
+                    <td>@entry.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hi ha dades disponibles.</p>
+}
+<br />
+<br />
+
+<!-- Valors sospitosos -->
+<h2>Municipis amb valors sospitosos (>999999)</h2>
+@if (Model.SuspiciousConsumptions.Any())
+{
+    <ul>
+        @foreach (var item in Model.SuspiciousConsumptions)
+        {
+            <li>@item.County - @item.TotalWaterConsumption</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No s'han detectat valors sospitosos.</p>
+}
+<br />
+<br />
+
+<!-- Municipis amb tendència creixent -->
+<h2>Municipis amb tendència creixent</h2>
+@if (Model.GrowingConsumptionMunicipalities.Any())
+{
+    <ul>
+        @foreach (var county in Model.GrowingConsumptionMunicipalities)
+        {
+            <li>@county</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No hi ha municipis amb una tendència creixent.</p>
+}
+<br />
+<br />
