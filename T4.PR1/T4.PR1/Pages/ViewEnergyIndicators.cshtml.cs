@@ -11,6 +11,11 @@ namespace T4.PR1.Pages
         public string FileErrorMessage;
         public List<EnergyIndicator> EnergyIndicators { get; set; } = new List<EnergyIndicator>();
 
+        // Llistes per els anàlisis estadístics
+        public List<EnergyIndicator> HighNetProduction { get; set; } = new List<EnergyIndicator>();
+        public List<EnergyIndicator> HighGasolineConsumption { get; set; } = new List<EnergyIndicator>();
+        public Dictionary<int, decimal> AvgNetProductionPerYear { get; set; } = new();
+        public List<EnergyIndicator> HighDemandLowProduction { get; set; } = new List<EnergyIndicator>();
         public void OnGet()
         {
             string filePath = @"ModelData\indicadors_energetics_cat.csv";
@@ -76,6 +81,38 @@ namespace T4.PR1.Pages
                         {
                             FileErrorMessage = "Error al carregar les dades d'un indicador energètic";
                         }
+                    }
+
+                    if (EnergyIndicators.Count > 0)
+                    {
+                        HighNetProduction = EnergyIndicators
+                            .Where(e => e.CDEEBC_NetProduction > 3000)
+                            .OrderBy(e => e.CDEEBC_NetProduction)
+                            .ToList();
+
+                        HighGasolineConsumption = EnergyIndicators
+                            .Where(e => e.CCAC_AutoGasoline > 100)
+                            .OrderByDescending(e => e.CCAC_AutoGasoline)
+                            .ToList();
+
+                        AvgNetProductionPerYear = EnergyIndicators
+                            .Select(e =>
+                            {
+                                var parts = e.Date.Split('/');
+                                return (Year: parts.Length == 2 && int.TryParse(parts[1], out int year) ? year : (int?)null, e.CDEEBC_NetProduction);
+                            })
+                            .Where(e => e.Year.HasValue)
+                            .GroupBy(e => e.Year.Value)
+                            .ToDictionary(
+                                g => g.Key,
+                                g => g.Average(e => e.CDEEBC_NetProduction) ?? 0m
+                            )
+                            .OrderBy(kv => kv.Key)
+                            .ToDictionary(kv => kv.Key, kv => kv.Value);
+
+                        HighDemandLowProduction = EnergyIndicators
+                            .Where(e => e.CDEEBC_ElectricityDemand > 4000 && e.CDEEBC_AvailableProduction <= 300)
+                            .ToList();
                     }
                 }
             }
