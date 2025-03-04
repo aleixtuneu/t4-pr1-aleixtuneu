@@ -1,0 +1,52 @@
+﻿@page
+@model T4.PR1.Pages.ViewSimulationsModel
+
+<h2>Simulacions d'Energia</h2>
+
+@if (!string.IsNullOrEmpty(Model.FileErrorMessage))
+{
+    <div class="alert alert-danger">
+        @Model.FileErrorMessage
+    </div>
+}
+
+@if (Model.Simulations.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Tipus de Sistema</th>
+                <th>Valor Input</th>
+                <th>Rati</th>
+                <th>Energia Generada</th>
+                <th>Cost per kWh</th>
+                <th>Preu per kWh</th>
+                <th>Cost Total</th>
+                <th>Preu Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sim in Model.Simulations)
+            {
+                <tr>
+                    <td>@sim.SimulationDate.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@sim.SystemType</td>
+                    <td>@sim.InputValue</td>
+                    <td>@sim.Ratio</td>
+                    <td>@sim.EnergyGenerated</td>
+                    <td>@sim.CostPerKWh €</td>
+                    <td>@sim.PricePerKWh €</td>
+                    <td>@sim.TotalCost €</td>
+                    <td>@sim.TotalPrice €</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hi ha simulacions disponibles.</p>
+}
+
+<a class="btn btn-primary" asp-page="AddSimulation">Afegir Simulació</a>
