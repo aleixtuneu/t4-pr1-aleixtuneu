@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WaterConsumptions>
+  <WaterConsumption>
+    <Year>2010</Year>
+    <Code>123</Code>
+    <County>Barcelona</County>
+    <Population>11</Population>
+    <HomeNetwork>10</HomeNetwork>
+    <EconomicActivities>10</EconomicActivities>
+    <TotalWaterConsumption>12</TotalWaterConsumption>
+    <DomesticConsumptionPerCapita>1267</DomesticConsumptionPerCapita>
+  </WaterConsumption>
+</WaterConsumptions>
