@@ -1,0 +1,56 @@
+﻿@page
+@model T4.PR1.Pages.AddWaterConsumptionModel
+@{
+    ViewData["Title"] = "Afegir nou consum d'aigua";
+}
+
+<h1>Afegir nou consum d'aigua</h1>
+
+<form action="#" method="post">
+	<div class="form-group">
+		<label asp-for="NewWaterConsumption.Year"></label>
+		<input asp-for="NewWaterConsumption.Year" class="form-control" />
+		<span asp-validation-for="NewWaterConsumption.Year"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="NewWaterConsumption.Code"></label>
+		<input asp-for="NewWaterConsumption.Code" class="form-control" />
+		<span asp-validation-for="NewWaterConsumption.Code"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="NewWaterConsumption.County"></label>
+		<input asp-for="NewWaterConsumption.County" class="form-control" />
+		<span asp-validation-for="NewWaterConsumption.County"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="NewWaterConsumption.Population"></label>
+		<input asp-for="NewWaterConsumption.Population" class="form-control" />
+		<span asp-validation-for="NewWaterConsumption.Population"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="NewWaterConsumption.HomeNetwork"></label>
+		<input asp-for="NewWaterConsumption.HomeNetwork" class="form-control" />
+		<span asp-validation-for="NewWaterConsumption.HomeNetwork"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="NewWaterConsumption.EconomicActivities"></label>
+		<input asp-for="NewWaterConsumption.EconomicActivities" class="form-control" />
+		<span asp-validation-for="NewWaterConsumption.EconomicActivities"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="NewWaterConsumption.TotalWaterConsumption"></label>
+		<input asp-for="NewWaterConsumption.TotalWaterConsumption" class="form-control" />
+		<span asp-validation-for="NewWaterConsumption.TotalWaterConsumption"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="NewWaterConsumption.DomesticConsumptionPerCapita"></label>
+		<input asp-for="NewWaterConsumption.DomesticConsumptionPerCapita" class="form-control" />
+		<span asp-validation-for="NewWaterConsumption.DomesticConsumptionPerCapita"></span>
+	</div>
+	<br/>
+	<button type="submit" class="btn btn-primary">Afegir</button>
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
