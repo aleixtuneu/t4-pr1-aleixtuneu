@@ -1,0 +1,137 @@
+﻿@page
+@model T4.PR1.Pages.AddEnergyIndicatorModel
+@{
+    ViewData["Title"] = "Afegir Indicador Energètic";
+}
+
+<h1>Afegir Indicador Energètic</h1>
+<br />
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p class="text-danger">@Model.ErrorMessage</p>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label for="Date" class="form-label">Data (MM/YYYY)</label>
+        <input type="text" asp-for="NewEnergyIndicator.Date" class="form-control" placeholder="MM/YYYY" />
+        <span asp-validation-for="NewEnergyIndicator.Date" class="text-danger"></span>
+    </div>
+
+    <!-- Producció d'energia -->
+    <h4>Producció Bruta d'Energia Elèctrica (PBEE)</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="form-label">Hidroelèctrica</label>
+            <input type="number" asp-for="NewEnergyIndicator.PBEE_Hydroelectric" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Carbó</label>
+            <input type="number" asp-for="NewEnergyIndicator.PBEE_Coal" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Gas Natural</label>
+            <input type="number" asp-for="NewEnergyIndicator.PBEE_NaturalGas" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="form-label">Fuel Oil</label>
+            <input type="number" asp-for="NewEnergyIndicator.PBEE_FuelOil" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Cicle Combinat</label>
+            <input type="number" asp-for="NewEnergyIndicator.PBEE_CombinedCycle" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Nuclear</label>
+            <input type="number" asp-for="NewEnergyIndicator.PBEE_Nuclear" class="form-control" />
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Consum i demanda -->
+    <h4>Consum i Demanda</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="form-label">Producció Neta</label>
+            <input type="number" asp-for="NewEnergyIndicator.CDEEBC_NetProduction" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Demanda Elèctrica</label>
+            <input type="number" asp-for="NewEnergyIndicator.CDEEBC_ElectricityDemand" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Producció Disponible</label>
+            <input type="number" asp-for="NewEnergyIndicator.CDEEBC_AvailableProduction" class="form-control" />
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Mercat -->
+    <h4>Mercat Elèctric</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Mercat Regulat (%)</label>
+            <input type="number" asp-for="NewEnergyIndicator.CDEEBC_TotalRegulatedMarket" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Mercat Liberalitzat</label>
+            <input type="number" asp-for="NewEnergyIndicator.CDEEBC_TotalLiberalizedMarket" class="form-control" />
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Usos Final -->
+    <h4>Usos Finals de l'Energia</h4>
+    <div class="row">
+        <div class="col-md-3">
+            <label class="form-label">Indústria</label>
+            <input type="number" asp-for="NewEnergyIndicator.FEE_Industry" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Sector Terciari</label>
+            <input type="number" asp-for="NewEnergyIndicator.FEE_Tertiary" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Domèstic</label>
+            <input type="number" asp-for="NewEnergyIndicator.FEE_Domestic" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Primari</label>
+            <input type="number" asp-for="NewEnergyIndicator.FEE_Primary" class="form-control" />
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Consum de Gas i Combustibles -->
+    <h4>Consum de Gas i Combustibles</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="form-label">Gasolina</label>
+            <input type="number" asp-for="NewEnergyIndicator.CCAC_AutoGasoline" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Dièsel A</label>
+            <input type="number" asp-for="NewEnergyIndicator.CCAC_DieselA" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Consum de Gas Natural</label>
+            <input type="number" asp-for="NewEnergyIndicator.DGGN_NaturalGasConsumption" class="form-control" />
+        </div>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Afegir</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
