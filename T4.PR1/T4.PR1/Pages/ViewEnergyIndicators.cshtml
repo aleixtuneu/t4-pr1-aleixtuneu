@@ -7,6 +7,13 @@
 <h1>Llistat d'Indicadors Energètics</h1>
 <br />
 
+<p><strong>Nombre de registres:</strong> @Model.EnergyIndicators.Count</p>
+@if (!string.IsNullOrEmpty(Model.FileErrorMessage))
+{
+    <p class="text-danger">@Model.FileErrorMessage</p>
+}
+<br />
+
 <!-- Taula Principal -->
 <div style="overflow-x: auto;">
     <table class="table table-striped">
