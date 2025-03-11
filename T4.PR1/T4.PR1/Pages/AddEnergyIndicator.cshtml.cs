@@ -14,7 +14,7 @@ namespace T4.PR1.Pages
         public string ErrorMessage { get; set; }
 
         public string filePath = @"ModelData\indicadors_energetics_cat.json";
-        
+
         public void OnGet()
         {
             try
@@ -39,7 +39,7 @@ namespace T4.PR1.Pages
 
         public IActionResult OnPost()
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
